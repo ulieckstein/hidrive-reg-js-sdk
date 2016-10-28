@@ -162,6 +162,16 @@ var HD_REG = (function () {
         }
     };
 
+    configureStandardOptionsWithSubId = function(partnerSubId) {
+        opts = {
+            'productName': 'HiDriveFree',
+            'product': 'freemium',
+            'partnerId': 'STRATO',
+            'partnerRefId': 'HiDrive',
+            'partnerSubId': partnerSubId
+        }
+    }
+
     /**
     * Makes a call to get the full url for the ordering process.
     *
