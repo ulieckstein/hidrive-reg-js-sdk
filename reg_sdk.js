@@ -40,6 +40,9 @@
 var HD_REG = (function () {
     "use strict";
     var version = '0.0.1',
+        checkUsername,
+        checkEmail,
+        getCaptcha,
         getFullUrl,
         sendRequest,
         getOrderApiUrl,
@@ -449,13 +452,23 @@ var HD_REG = (function () {
         }
     };
 
+    checkEmail = function(properties, successCb, errorCb){
+        return post("/check_email", properties, successCb, errorCb);
+    };
+    checkUsername = function(){
+        return post("/check_username", properties, successCb, errorCb);
+    };
+    getCaptcha = function(){
+        return post("/getcaptcha", properties, successCb, errorCb);
+    };
+
     //namespace
     return {
-        options: options,
-        getOrderApiUrl: getOrderApiUrl,
+        configure: configureStandardOptionsWithSubId,
         version: version,
-        post: post,
-        order: order,
-        getFullUrl: getFullUrl
+        checkEmail: checkEmail,
+        checkUsername: checkUsername,
+        getCaptcha: getCaptcha,
+        order: order
     };
 })();
