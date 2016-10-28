@@ -431,7 +431,13 @@ var HD_REG = (function () {
 
     xhr = function () {
         try {
-            return new XMLHttpRequest();
+            var request = new XMLHttpRequest();
+            if("withCredentials" in xhr) 
+                return request;
+            else if (typeof XDomainRequest != "undefined")
+                return new XDomainRequest();
+            else 
+                throw new Error('Browser is not CORS capable');
         } catch (e) {
             throw new Error('Browser is not CORS capable');
         }
