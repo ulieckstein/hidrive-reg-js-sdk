@@ -56,7 +56,7 @@ var HD_REG = (function () {
             'partnerSubId': null
         };
 
-    sendRequest = function (opt, successCb, errorCb, progressCb) {
+    sendRequest = function (opt, successCb, errorCb) {
         var req = xhr(),
             headers,
             dataString;
@@ -71,8 +71,6 @@ var HD_REG = (function () {
                     errorCb(req);
                 }
                 req.onreadystatechange = function () { };
-            } else if (progressCb) {
-                progressCb(req);
             }
         };
 
@@ -263,9 +261,8 @@ var HD_REG = (function () {
     * @param {Object} [properties] A JSON object containing the properties. 
     * @param {Function} [successCb] The callback function that is invoked when API call is successful.
     * @param {Function} [errorCb] The callback function that is invoked when API call is failed.
-    * @param {Function} [progressCb] The callback function that is invoked for handling of progress notifications along the way.
     */
-    post = function (path, properties, successCb, errorCb, progressCb) {
+    post = function (path, properties, successCb, errorCb) {
         var absoluteUrl;
 
         absoluteUrl = getFullUrl(path);
@@ -292,7 +289,7 @@ var HD_REG = (function () {
 
             errorCb(obj);
 
-        }, progressCb());
+        });
     };
 
 
@@ -330,9 +327,8 @@ var HD_REG = (function () {
     * @param {Object} [properties] A JSON object containing the properties. 
     * @param {Function} [successCb] The callback function that is invoked when API call is successful.
     * @param {Function} [errorCb] The callback function that is invoked when API call is failed.
-    * @param {Function} [progressCb] The callback function that is invoked for handling of progress notifications along the way.
     */
-    order = function(properties, successCb, errorCb, progressCb) {
+    order = function(properties, successCb, errorCb) {
         //check username
         post("/check_username", {
             username: properties.username,
@@ -394,7 +390,7 @@ var HD_REG = (function () {
                                     } else {
                                         errorCb({ error: "common-error" });
                                     }
-                                }, progressCb);
+                                });
                             } else if (resultEmail.data.return_code === 1001) {
                                 errorCb({ error: "email-exists" });
                             } else {
@@ -409,7 +405,7 @@ var HD_REG = (function () {
                         } else {
                             errorCb({ error: "common-error" });
                         }
-                    }, progressCb);
+                    });
                 } else {
                     if (resultUsername.data.errors && resultUsername.data.errors.length > 0) {
                         errorCb({ error: "username-invalid" });
@@ -426,7 +422,7 @@ var HD_REG = (function () {
             } else {
                 errorCb({ error: "common-error" });
             }
-        }, progressCb);
+        });
     };
 
     xhr = function () {
